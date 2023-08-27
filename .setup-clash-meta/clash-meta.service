@@ -1,0 +1,24 @@
+[Unit]
+Description=A rule-based tunnel in Go.
+After=network.target NetworkManager.service systemd-networkd.service iwd.service
+
+[Service]
+ProtectHome=true
+ProtectSystem=full
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+
+NoNewPrivileges=true
+MemoryDenyWriteExecute=true
+
+StateDirectory=clash-meta
+
+ConfigurationDirectory=clash-meta
+ConfigurationDirectoryMode=0555
+
+ExecStartPre=cp -n /usr/local/share/clash-meta/Country.mmdb ${STATE_DIRECTORY}/Country.mmdb
+ExecStart=clash-meta -d $STATE_DIRECTORY -f ${CONFIGURATION_DIRECTORY}/config.yaml
+
+[Install]
+WantedBy=multi-user.target

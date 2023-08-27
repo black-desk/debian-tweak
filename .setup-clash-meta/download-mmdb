@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -x
+set -e
+set -o pipefail
+
+curl -LJ "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb" > Country.mmdb
