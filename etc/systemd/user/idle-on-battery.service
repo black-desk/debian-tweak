@@ -1,0 +1,10 @@
+[Unit]
+Description=Make this system idle only when using battery.
+
+[Service]
+Environment="BUSCTL=/opt/io.github.black-desk/systemd/build/busctl"
+Type=simple
+ExecStart=/opt/io.github.black-desk/tpl14-debian-tweak/scripts/idle-only-using-battery.sh
+
+[Install]
+WantedBy=default.target
