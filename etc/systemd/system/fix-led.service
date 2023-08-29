@@ -1,0 +1,9 @@
+[Unit]
+Description=Update capslock LED on builtin keyboard to correct state.
+
+[Service]
+Type=simple
+ExecStart=/opt/io.github.black-desk/tpl14-debian-tweak/scripts/fix-led.sh
+
+[Install]
+WantedBy=default.target
