@@ -1,0 +1,6 @@
+# This file is copied and modified from
+# https://blog.lilydjwg.me/tag/%E9%94%AE%E7%9B%98
+
+evdev:atkbd:dmi:*
+ KEYBOARD_KEY_01=capslock   # 01 is esc
+ KEYBOARD_KEY_3A=esc        # 3A is capslock
