@@ -17,4 +17,6 @@ done < <(
 		-printf %p\\n
 )
 
+killall -9 winedevice.exe || true
+
 echo "done"
