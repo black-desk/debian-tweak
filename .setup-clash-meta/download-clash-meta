@@ -4,17 +4,15 @@ set -x
 set -e
 set -o pipefail
 
-REPO=${REPO:=MetaCubeX/Clash.Meta}
+REPO=${REPO:=MetaCubeX/mihomo}
 
 CURL=${CURL:=curl}
 JQ=${JQ:=jq}
 
-# VERSION=${VERSION:=$(${CURL} -s https://api.github.com/repos/${REPO}/releases/latest | jq -r .tag_name)}
-# NOTE: latest version has some bug, I using v1.14.5 for now.
-VERSION=${VERSION:=v1.14.5}
+VERSION=${VERSION:=$(${CURL} -s https://api.github.com/repos/${REPO}/releases/latest | jq -r .tag_name)}
 
 ARCH=${ARCH:=amd64}
 
 OUTPUT=${OUTPUT:=clash-meta}
 
-curl -LJ "https://github.com/${REPO}/releases/download/${VERSION}/clash.meta-linux-${ARCH}-${VERSION}.gz" | gunzip > ${OUTPUT}
+curl -LJ "https://github.com/${REPO}/releases/download/${VERSION}/mihomo-linux-${ARCH}-cgo-${VERSION}.gz" | gunzip > ${OUTPUT}
