@@ -3,23 +3,33 @@
 set -e
 set -o pipefail
 
+BUSCTL=${BUSCTL:=busctl}
+
 function update_idle_delay() {
 	status="$1"
 
 	idle_delay=0
 	[ "$status" == "true" ] && idle_delay=120
 
-	old_idle_delay=$(gsettings get org.gnome.desktop.session idle-delay | awk '{print $2}' )
+	old_idle_delay=$(gsettings get org.gnome.desktop.session idle-delay | awk '{print $2}')
 
 	if [[ "$old_idle_delay" == "$idle_delay" ]]; then
 		return
 	fi
 
-	echo "Update idle_delay from $old_idle_delay to $idle_delay"
 	gsettings set org.gnome.desktop.session idle-delay "$idle_delay"
+	${BUSCTL} --user call \
+		"org.freedesktop.Notifications" \
+		"/org/freedesktop/Notifications" \
+		"org.freedesktop.Notifications" "Notify" \
+		susssasa\{sv\}i \
+		"idle-only-using-battery" 0 \
+		"systemsettings" "Update idle_delay" \
+                "Update idle_delay from $old_idle_delay to $idle_delay" \
+                0 \
+                0 \
+                1000
 }
-
-BUSCTL=${BUSCTL:=busctl}
 
 update_idle_delay "$(${BUSCTL} get-property --json=short \
 	org.freedesktop.UPower \
