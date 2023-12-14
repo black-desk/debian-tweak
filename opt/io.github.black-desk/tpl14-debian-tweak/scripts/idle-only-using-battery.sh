@@ -28,7 +28,7 @@ function update_idle_delay() {
                 "Update idle_delay from $old_idle_delay to $idle_delay" \
                 0 \
                 0 \
-                1000
+                1000 || true
 }
 
 update_idle_delay "$(${BUSCTL} get-property --json=short \
