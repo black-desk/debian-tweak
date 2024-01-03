@@ -1,5 +1,6 @@
 [Unit]
-Description=Update capslock LED on builtin keyboard to correct state.
+Description=Update capslock LED on builtin keyboard to correct state on my thinkpad L14.
+ConditionEnvironment=BLACKDESK_IS_THINKPAD_L14_GEN2
 
 [Service]
 Type=simple

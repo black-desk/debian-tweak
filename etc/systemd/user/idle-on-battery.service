@@ -1,5 +1,6 @@
 [Unit]
 Description=Make this system idle only when using battery.
+ConditionEnvironment=BLACKDESK_HAS_BATTERY
 
 [Service]
 Environment="BUSCTL=/opt/io.github.black-desk/systemd/build/busctl"
