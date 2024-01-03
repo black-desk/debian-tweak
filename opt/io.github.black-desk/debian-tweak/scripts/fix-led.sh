@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script is used by blackdesk-fix-led.service
+
 # Some keyboard manufacture will
 # make capslock key switch the LED state
 # without kernel say it to.

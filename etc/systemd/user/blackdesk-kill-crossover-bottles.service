@@ -3,7 +3,7 @@ Description=Make sure crossover bottle killed before shutdown
 
 [Service]
 Type=oneshot
-ExecStop=/opt/io.github.black-desk/tpl14-debian-tweak/scripts/kill-crossover-bottles.sh
+ExecStop=/opt/io.github.black-desk/debian-tweak/scripts/kill-crossover-bottles.sh
 RemainAfterExit=yes
 KillMode=mixed
 

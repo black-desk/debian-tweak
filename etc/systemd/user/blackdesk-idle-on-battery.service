@@ -5,7 +5,7 @@ ConditionEnvironment=BLACKDESK_HAS_BATTERY
 [Service]
 Environment="BUSCTL=/opt/io.github.black-desk/systemd/build/busctl"
 Type=simple
-ExecStart=/opt/io.github.black-desk/tpl14-debian-tweak/scripts/idle-only-using-battery.sh
+ExecStart=/opt/io.github.black-desk/debian-tweak/scripts/idle-only-using-battery.sh
 Restart=always
 RestartSec=5
 
