@@ -1,10 +1,27 @@
-.PHONY: all install subdirs subdirs-install
+TWEAK=opt/io.github.black-desk/debian-tweak
 
-all:
-	find . \( ! -path "./.git*" \) -type d -regex '\./\..+' \
-		-exec ${MAKE} -C {} \;
+.PHONY: all
+all: clash-meta
 
-install: 
+.PHONY: clash-meta
+clash-meta: usr/local/bin/clash-meta usr/local/share/clash-meta/Country.mmdb
+
+usr/local/bin/clash-meta: ${TWEAK}/scripts/download-clash-meta
+	env OUTPUT=$@ ./${TWEAK}/scripts/download-clash-meta
+
+usr/local/share/clash-meta/Country.mmdb: ${TWEAK}/scripts/download-mmdb
+	env OUTPUT=$@ ./${TWEAK}/scripts/download-mmdb
+
+.PHONY: clean-clash-meta
+clean-clash-meta:
+	rm usr/local/bin/clash-meta -f
+	rm usr/local/share/clash-meta/Country.mmdb -f
+
+.PHONY: clean
+clean: clean-clash-meta
+
+.PHONY: install
+install: all
 	find . \( ! -path "./.git*" \) -type d -regex '\./\..+' \
 		-exec ${MAKE} -C {} install \;
 	find etc opt -type f -perm 0755 \
