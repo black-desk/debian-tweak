@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script is used to download the latest version of clash-meta.
+
 set -x
 set -e
 set -o pipefail
@@ -27,8 +29,12 @@ function cleanup() {
 
 trap cleanup EXIT
 
-VERSION=${VERSION:=$(${CURL} -s https://api.github.com/repos/"${REPO}"/releases/latest | jq -r .tag_name)}
+VERSION=${VERSION:=$(
+	${CURL} -s https://api.github.com/repos/"${REPO}"/releases/latest |
+		jq -r .tag_name
+)}
 
 mkdir -p "$(dirname "$OUTPUT")"
 
-curl -LJ "https://github.com/${REPO}/releases/download/${VERSION}/mihomo-linux-${ARCH}-${VERSION}.gz" | gunzip >"${OUTPUT}"
+curl -LJ "https://github.com/${REPO}/releases/download/${VERSION}/mihomo-linux-${ARCH}-${VERSION}.gz" |
+	gunzip >"${OUTPUT}"

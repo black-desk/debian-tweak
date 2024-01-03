@@ -18,11 +18,11 @@ install: all
 .PHONY: clash-meta
 clash-meta: usr/local/bin/clash-meta usr/local/share/clash-meta/Country.mmdb
 
-usr/local/bin/clash-meta: ${TWEAK}/scripts/download-clash-meta
-	env OUTPUT=$@ ./${TWEAK}/scripts/download-clash-meta
+usr/local/bin/clash-meta: ${TWEAK}/scripts/download-clash-meta.sh
+	env OUTPUT=$@ ./${TWEAK}/scripts/download-clash-meta.sh
 
-usr/local/share/clash-meta/Country.mmdb: ${TWEAK}/scripts/download-mmdb
-	env OUTPUT=$@ ./${TWEAK}/scripts/download-mmdb
+usr/local/share/clash-meta/Country.mmdb: ${TWEAK}/scripts/download-mmdb.sh
+	env OUTPUT=$@ ./${TWEAK}/scripts/download-mmdb.sh
 
 .PHONY: clean-clash-meta
 clean-clash-meta:
