@@ -1,3 +1,5 @@
+# vim: ft=systemd
+
 [Unit]
 Description=A rule-based tunnel in Go.
 After=network.target NetworkManager.service systemd-networkd.service iwd.service
