@@ -2,9 +2,12 @@
 
 # This script is used to download clash-meta.
 
-set -x
 set -e
 set -o pipefail
+
+if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
+	set -x
+fi
 
 CURL=${CURL:=curl}
 GUNZIP=${GUNZIP:=gunzip}

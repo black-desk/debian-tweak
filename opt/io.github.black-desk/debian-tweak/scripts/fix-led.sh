@@ -13,6 +13,10 @@
 set -e
 set -o pipefail
 
+if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
+	set -x
+fi
+
 LED=${LED:=/sys/class/leds/input0::capslock}
 EVENT=${EVENT:=/dev/input/event0}
 

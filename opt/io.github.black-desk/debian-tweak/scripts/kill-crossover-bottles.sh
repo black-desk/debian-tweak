@@ -1,7 +1,10 @@
 #!/bin/bash
 
 set -e
-set -x
+
+if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
+	set -x
+fi
 
 CX_ROOT=${CX_ROOT:=/opt/cxoffice}
 

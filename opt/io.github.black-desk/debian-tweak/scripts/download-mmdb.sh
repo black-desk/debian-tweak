@@ -2,17 +2,12 @@
 
 # This script is used to download Country.mmdb, which is a db used by clash.
 
-# Some keyboard manufacture will
-# make capslock key switch the LED state
-# without kernel say it to.
-# This make user like me who swap capslock with other keys panic.
-#
-# This script is used to keep capslock LED on builtin keyboard
-# to be in correct state.
-
-set -x
 set -e
 set -o pipefail
+
+if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
+	set -x
+fi
 
 OUTPUT=${OUTPUT:=Country.mmdb}
 

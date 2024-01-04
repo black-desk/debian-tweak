@@ -3,6 +3,10 @@
 set -e
 set -o pipefail
 
+if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
+	set -x
+fi
+
 BUSCTL=${BUSCTL:=busctl}
 
 function update_idle_delay() {
@@ -25,10 +29,10 @@ function update_idle_delay() {
 		susssasa\{sv\}i \
 		"idle-only-using-battery" 0 \
 		"systemsettings" "Update idle_delay" \
-                "Update idle_delay from $old_idle_delay to $idle_delay" \
-                0 \
-                0 \
-                1000 || true
+		"Update idle_delay from $old_idle_delay to $idle_delay" \
+		0 \
+		0 \
+		1000 || true
 }
 
 update_idle_delay "$(${BUSCTL} get-property --json=short \
