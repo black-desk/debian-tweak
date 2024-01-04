@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# This script is used to download the latest version of clash-meta.
+# This script is used to download clash-meta.
 
 set -x
 set -e
 set -o pipefail
 
 CURL=${CURL:=curl}
-JQ=${JQ:=jq}
+GUNZIP=${GUNZIP:=gunzip}
 
 REPO=${REPO:=MetaCubeX/mihomo}
-
+VERSION=${VERSION:=1.18.0}
 ARCH=${ARCH:=amd64}
 
 OUTPUT=${OUTPUT:=clash-meta}
@@ -29,12 +29,7 @@ function cleanup() {
 
 trap cleanup EXIT
 
-VERSION=${VERSION:=$(
-	${CURL} -s https://api.github.com/repos/"${REPO}"/releases/latest |
-		jq -r .tag_name
-)}
-
 mkdir -p "$(dirname "$OUTPUT")"
 
-curl -LJ "https://github.com/${REPO}/releases/download/${VERSION}/mihomo-linux-${ARCH}-${VERSION}.gz" |
-	gunzip >"${OUTPUT}"
+"$CURL" -LJ "https://github.com/${REPO}/releases/download/${VERSION}/mihomo-linux-${ARCH}-${VERSION}.gz" |
+	"$GUNZIP" >"${OUTPUT}"

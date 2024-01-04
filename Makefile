@@ -15,11 +15,20 @@ install: all
 	find etc opt -type f -perm 0644 \
 		-exec install {} -m 0644 -D ${DESTDIR}/{} \;
 
-.PHONY: clash-meta
-clash-meta: usr/local/bin/clash-meta usr/local/share/clash-meta/Country.mmdb
 
-usr/local/bin/clash-meta: ${TWEAK}/scripts/download-clash-meta.sh
-	env OUTPUT=$@ ./${TWEAK}/scripts/download-clash-meta.sh
+
+.PHONY: get-clash-meta-version
+get-clash-meta-version:
+	./${TWEAK}/scripts/get-clash-meta-version.sh
+
+.PHONY: clash-meta
+clash-meta: get-clash-meta-version usr/local/bin/clash-meta usr/local/share/clash-meta/Country.mmdb
+
+usr/local/bin/clash-meta: clash-meta-version ${TWEAK}/scripts/download-clash-meta.sh
+	env \
+		VERSION=$(shell cat clash-meta-version) \
+		OUTPUT=$@ \
+		./${TWEAK}/scripts/download-clash-meta.sh
 
 usr/local/share/clash-meta/Country.mmdb: ${TWEAK}/scripts/download-mmdb.sh
 	env OUTPUT=$@ ./${TWEAK}/scripts/download-mmdb.sh
