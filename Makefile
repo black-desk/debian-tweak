@@ -14,6 +14,7 @@ install: all
 		-exec install {} -m 0755 -D ${DESTDIR}/{} \;
 	find etc opt -type f -perm 0644 \
 		-exec install {} -m 0644 -D ${DESTDIR}/{} \;
+	update-grub2
 
 
 
