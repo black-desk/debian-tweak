@@ -10,3 +10,4 @@ This repository contains some tweaks for my own use on latest debian sid.
       so I have to adjust some kernel cmd arguments and lock kernel version;
    1. After I swap keys on builtin keyboard, I found a LED status bug;
 1. Idle only when using battery.
+1. ZSH will source /etc/profile in /etc/zsh/zprofile.
