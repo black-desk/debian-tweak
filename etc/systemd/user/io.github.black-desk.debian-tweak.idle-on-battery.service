@@ -1,0 +1,12 @@
+[Unit]
+Description=Make this system idle only when using battery.
+ConditionEnvironment=IO_GITHUB_BLACKDESK_DEBIANTWEAK_HAS_BATTERY
+
+[Service]
+Type=simple
+ExecStart=/opt/io.github.black-desk.debian-tweak/libexec/io.github.black-desk.debian-tweak/idle-only-using-battery.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

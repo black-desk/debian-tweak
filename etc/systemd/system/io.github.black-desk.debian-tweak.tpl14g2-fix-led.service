@@ -1,0 +1,10 @@
+[Unit]
+Description=Update capslock LED on builtin keyboard to correct state on my thinkpad L14 Gen2.
+ConditionEnvironment=IO_GITHUB_BLACKDESK_DEBIANTWEAK_IS_THINKPAD_L14_GEN2
+
+[Service]
+Type=simple
+ExecStart=/opt/io.github.black-desk.debian-tweak/libexec/io.github.black-desk.debian-tweak/fix-led.sh
+
+[Install]
+WantedBy=default.target

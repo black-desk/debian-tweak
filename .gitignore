@@ -1,3 +1,12 @@
-/usr/local/share/clash-meta/Country.mmdb
-/usr/local/bin/clash-meta
+/busagent-version
+/opt/io.github.black-desk.debian-tweak/bin/busagent
+
 /clash-meta-version
+/opt/io.github.black-desk.debian-tweak/bin/clash-meta
+/opt/io.github.black-desk.debian-tweak/share/clash-meta/Country.mmdb
+
+/debian/.debhelper/generated/io.github.black-desk.debian-tweak
+/debian/io.github.black-desk.debian-tweak
+/debian/debhelper-build-stamp
+/debian/files
+/debian/io.github.black-desk.debian-tweak.substvars
