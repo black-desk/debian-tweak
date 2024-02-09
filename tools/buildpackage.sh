@@ -5,7 +5,7 @@ set -e
 GIT=${GIT:="git"}
 
 repoRoot="$("$GIT" rev-parse --show-toplevel)"
-pushd "$repoRoot/io.github.black-desk.debian-tweak/tools"
+pushd "$repoRoot/tools"
 
 VERSION=${VERSION:="$(
 	gh release view -R black-desk/debian-tweak --json tagName |
