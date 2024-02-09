@@ -17,11 +17,11 @@ install: all
 		-exec install {} -m 0644 -D ${DESTDIR}/{} \;
 	echo "You might want to run update-grub2 to apply grub changes."
 
-.PHONY: clash-meta-version
-clash-meta-version:
-	env \
-		OUTPUT=clash-meta-version \
-		REPO=MetaCubeX/mihomo \
+clash-meta-version: get-clash-meta-version
+
+.PHONY: get-clash-meta-version
+get-clash-meta-version:
+	env OUTPUT=clash-meta-version REPO=MetaCubeX/mihomo \
 		${TWEAK}/libexec/${ID}/get-github-release-version.sh
 
 .PHONY: clash-meta
@@ -43,8 +43,10 @@ clean-clash-meta:
 .PHONY: busagent
 busagent: ${TWEAK}/bin/busagent
 
-.PHONY: busagent-version
-busagent-version:
+busagent-version: get-busagent-version
+
+.PHONY: get-busagent-version
+get-busagent-version:
 	env OUTPUT=busagent-version REPO=black-desk/busagent \
 		${TWEAK}/libexec/${ID}/get-github-release-version.sh
 
