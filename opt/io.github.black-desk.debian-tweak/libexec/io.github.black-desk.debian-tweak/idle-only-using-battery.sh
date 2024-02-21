@@ -49,7 +49,7 @@ update_idle_delay "$(
 		jq .Value
 )"
 
-${BUSAGENT} listen -j \
+${BUSAGENT} listen -j -t system \
         -s sender=org.freedesktop.UPower \
         -s interface=org.freedesktop.DBus.Properties \
         -s member=PropertiesChanged \
