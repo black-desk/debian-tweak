@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# This script is used to get the latest version of clash-meta.
+# This script is used to get the latest version of a github repository.
 
 set -e
 set -o pipefail
 
-if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
+REPO=$1
+OUTPUT=$2
+
+if [ -z "$SCRIPT_DEBUG" ]; then
 	set -x
 fi
 
 CURL=${CURL:=curl}
 JQ=${JQ:=jq}
-
-REPO=${REPO:=MetaCubeX/mihomo}
-OUTPUT=${OUTPUT:=clash-meta-version}
 
 function cleanup() {
 	rv=$?
