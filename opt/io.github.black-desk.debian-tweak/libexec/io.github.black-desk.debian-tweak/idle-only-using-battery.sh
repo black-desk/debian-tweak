@@ -7,7 +7,7 @@ if [ -z "$BLACKDESK_TWEAK_SCRIPT_DEBUG" ]; then
 	set -x
 fi
 
-BUSCTL=${BUSCTL:=busctl}
+BUSAGENT=${BUSAGENT:=busagent}
 
 function update_idle_delay() {
 	status="$1"
@@ -22,37 +22,40 @@ function update_idle_delay() {
 	fi
 
 	gsettings set org.gnome.desktop.session idle-delay "$idle_delay"
-	${BUSCTL} --user call \
-		"org.freedesktop.Notifications" \
-		"/org/freedesktop/Notifications" \
-		"org.freedesktop.Notifications" "Notify" \
-		susssasa\{sv\}i \
-		"idle-only-using-battery" 0 \
-		"systemsettings" "Update idle_delay" \
-		"Update idle_delay from $old_idle_delay to $idle_delay" \
-		0 \
-		0 \
-		1000 || true
+        message="Update idle_delay from $old_idle_delay to $idle_delay"
+
+	"$BUSAGENT" call \
+		-n org.freedesktop.Notifications \
+		-o /org/freedesktop/Notifications \
+		-i org.freedesktop.Notifications \
+		-m Notify \
+		'"idle-only-using-battery"' \
+		'@u 0' \
+		'"systemsettings"' \
+		'"Update idle_delay"' \
+		"\"$message\"" \
+		'@as []' \
+		'@a{sv} {}' \
+		'1000' ||
+		true
 }
 
-update_idle_delay "$(${BUSCTL} get-property --json=short \
-	org.freedesktop.UPower \
-	/org/freedesktop/UPower \
-	org.freedesktop.UPower \
-	OnBattery |
-	jq --unbuffered ".data")"
+update_idle_delay "$(
+	"$BUSAGENT" prop get -j -t system \
+		-n org.freedesktop.UPower \
+		-o /org/freedesktop/UPower \
+		-i org.freedesktop.UPower \
+		-p OnBattery |
+		jq .Value
+)"
 
-match="\
-type='signal',\
-sender='org.freedesktop.UPower',\
-interface='org.freedesktop.DBus.Properties',\
-member='PropertiesChanged',\
-path='/org/freedesktop/UPower',\
-arg0='org.freedesktop.UPower'\
-"
-
-${BUSCTL} monitor --match="$match" --json=short |
-	jq ".payload.data[1].OnBattery.data" --unbuffered |
+${BUSAGENT} listen -j \
+        -s sender=org.freedesktop.UPower \
+        -s interface=org.freedesktop.DBus.Properties \
+        -s member=PropertiesChanged \
+        -s path=/org/freedesktop/UPower \
+        -s arg0=org.freedesktop.UPower |
+	jq ".Body[1].OnBattery.Value" --unbuffered |
 	while IFS= read -r status; do
 		update_idle_delay "$status"
 	done
