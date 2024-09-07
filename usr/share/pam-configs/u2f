@@ -1,0 +1,7 @@
+Name: U2F
+Default: no
+Priority: 264
+
+Auth-Type: Primary
+Auth:
+	[success=end default=ignore]	pam_u2f.so cue [cue_prompt=Touch your U2F device]

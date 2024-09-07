@@ -11,9 +11,9 @@ clean: clean-busagent
 install: all
 	find . \( ! -path "./.git*" \) -type d -regex '\./\..+' \
 		-exec ${MAKE} -C {} install \;
-	find etc opt -type f -perm 0755 \
+	find etc opt usr -type f -perm 0755 \
 		-exec install {} -m 0755 -D ${DESTDIR}/{} \;
-	find etc opt -type f -perm 0644 \
+	find etc opt usr -type f -perm 0644 \
 		-exec install {} -m 0644 -D ${DESTDIR}/{} \;
 	echo "You might want to run update-grub2 to apply grub changes."
 
