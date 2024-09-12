@@ -20,7 +20,6 @@ FILES= \
 	./etc/profile.d/20-$(ID).sh \
 	./etc/systemd/logind.conf.d/99-$(ID).conf \
 	./etc/systemd/sleep.conf.d/99-$(ID).conf \
-	./etc/systemd/system-environment-generators/00-$(ID) \
 	./etc/systemd/system/$(ID).tpl14g2-fix-led.service \
 	./etc/systemd/user/$(ID).idle-on-battery.service \
 	./etc/systemd/user/$(ID).kill-crossover-bottles.service \
@@ -31,9 +30,9 @@ FILES= \
 PROGRAMS= \
 	./$(TWEAK)/bin/busagent \
 	./$(TWEAK)/libexec/$(ID)/fix-led.sh \
+	./$(TWEAK)/libexec/$(ID)/idle-only-using-battery.sh \
 	./$(TWEAK)/libexec/$(ID)/kill-crossover-bottles.sh \
-	./$(TWEAK)/libexec/$(ID)/idle-only-using-battery.sh
-
+	./etc/systemd/system-environment-generators/00-$(ID)
 
 .PHONY: install-files
 install-files: $(addprefix install-file_${DESTDIR}/, ${FILES})
