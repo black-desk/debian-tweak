@@ -15,5 +15,3 @@ VERSION=${VERSION:="$(
 
 sed -i 's/(.*)/('"$VERSION"')/' ../debian/changelog
 popd
-
-dpkg-buildpackage -us -uc -b
